@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shop Hisab Kitab</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <h2>Shop Hisab</h2>
+
+        <button class="menu active" data-page="dashboard">
+            📊 Dashboard
+        </button>
+
+        <button class="menu" data-page="sales">
+            💰 Sales
+        </button>
+
+        <button class="menu" data-page="purchases">
+            🛒 Purchases
+        </button>
+
+        <button class="menu" data-page="customers">
+            👥 Customers
+        </button>
+
+        <button class="menu" data-page="udhaar">
+            📒 Udhaar
+        </button>
+
+        <button class="menu" data-page="stock">
+            📦 Stock
+        </button>
+
+        <button class="menu" data-page="expenses">
+            💸 Expenses
+        </button>
+
+        <button class="menu" data-page="history">
+            📅 Daily History
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active">
+
+            <div class="top">
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Aaj ka shop hisaab</p>
+                </div>
+
+                <div class="date" id="today"></div>
+
+            </div>
+
+
+            <!-- TODAY SUMMARY -->
+
+            <div class="cards">
+
+                <div class="card">
+                    <span>💰 Today's Sales</span>
+                    <h2 id="dashboard-sales">Rs. 0</h2>
+                </div>
+
+                <div class="card">
+                    <span>📈 Today's Profit</span>
+                    <h2 id="dashboard-profit">Rs. 0</h2>
+                </div>
+
+                <div class="card">
+                    <span>📒 Today's Udhaar</span>
+                    <h2 id="dashboard-udhaar">Rs. 0</h2>
+                </div>
+
+                <div class="card">
+                    <span>📦 Products</span>
+                    <h2 id="dashboard-products">0</h2>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="quick">
+
+                <h2>Quick Actions</h2>
+
+                <div class="quick-buttons">
+
+                    <button onclick="openPage('sales')">
+                        + Add Sale
+                    </button>
+
+                    <button onclick="openPage('purchases')">
+                        + Purchase
+                    </button>
+
+                    <button onclick="openPage('customers')">
+                        + Customer
+                    </button>
+
+                    <button onclick="openPage('stock')">
+                        + Product
+                    </button>
+
+                    <button onclick="openPage('udhaar')">
+                        + Udhaar
+                    </button>
+
+                    <button onclick="openPage('expenses')">
+                        + Expense
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CLEAR TODAY -->
+
+            <div class="danger-box">
+
+                <div>
+                    <h3>🗑️ Today's Hisab</h3>
+
+                    <p>
+                        Sirf aaj ka sales, purchases,
+                        udhaar aur expenses ka record delete hoga.
+                    </p>
+                </div>
+
+                <button
+                    class="delete-btn"
+                    onclick="clearToday()">
+
+                    Clear Today's Hisab
+
+                </button>
+
+            </div>
+
+
+            <!-- RECENT SALES -->
+
+            <div class="table-box">
+
+                <h2>Today's Sales</h2>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Time</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="dashboard-sales-list">
+
+                        <tr>
+                            <td colspan="5" class="empty">
+                                Aaj abhi koi sale nahi hui.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= SALES ================= -->
+
+        <section id="sales" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Sales</h1>
+                    <p>Aaj ki sales manage karein</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="showSaleForm()">
+
+                    + Add Sale
+
+                </button>
+
+            </div>
+
+
+            <!-- SALE FORM -->
+
+            <div id="sale-form" class="form-box">
+
+                <h2>Add New Sale</h2>
+
+                <input
+                    id="sale-customer"
+                    type="text"
+                    placeholder="Customer Name">
+
+                <input
+                    id="sale-product"
+                    type="text"
+                    placeholder="Product Name">
+
+                <input
+                    id="sale-quantity"
+                    type="number"
+                    placeholder="Quantity">
+
+                <input
+                    id="sale-purchase"
+                    type="number"
+                    placeholder="Purchase Price">
+
+                <input
+                    id="sale-price"
+                    type="number"
+                    placeholder="Selling Price">
+
+
+                <button onclick="saveSale()">
+                    Save Sale
+                </button>
+
+            </div>
+
+
+            <!-- SALES TABLE -->
+
+            <div class="table-box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Profit</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="sales-list">
+
+                        <tr>
+                            <td colspan="6" class="empty">
+                                Abhi koi sale nahi hai.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PURCHASES ================= -->
+
+        <section id="purchases" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Purchases</h1>
+                    <p>Aaj ki purchases</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addPurchase()">
+
+                    + Add Purchase
+
+                </button>
+
+            </div>
+
+
+            <div class="info-box" id="purchase-info">
+
+                <h2>Today's Purchases</h2>
+
+                <p id="purchase-total">
+                    Total: Rs. 0
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CUSTOMERS ================= -->
+
+        <section id="customers" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Customers</h1>
+                    <p>Shop customers</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addCustomer()">
+
+                    + Add Customer
+
+                </button>
+
+            </div>
+
+
+            <div class="table-box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="customer-list">
+
+                        <tr>
+                            <td colspan="3" class="empty">
+                                Abhi koi customer nahi hai.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= UDHAR ================= -->
+
+        <section id="udhaar" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Udhaar / Baki</h1>
+                    <p>Aaj ka udhaar</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addUdhaar()">
+
+                    + Add Udhaar
+
+                </button>
+
+            </div>
+
+
+            <div class="table-box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="udhaar-list">
+
+                        <tr>
+                            <td colspan="3" class="empty">
+                                Aaj koi udhaar nahi hai.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STOCK ================= -->
+
+        <section id="stock" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Stock</h1>
+                    <p>Shop products</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addProduct()">
+
+                    + Add Product
+
+                </button>
+
+            </div>
+
+
+            <div class="table-box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="stock-list">
+
+                        <tr>
+                            <td colspan="3" class="empty">
+                                Abhi stock empty hai.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= EXPENSES ================= -->
+
+        <section id="expenses" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Expenses</h1>
+                    <p>Aaj ke kharchay</p>
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addExpense()">
+
+                    + Add Expense
+
+                </button>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <h2>Today's Expenses</h2>
+
+                <p id="expense-total">
+                    Total: Rs. 0
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= DAILY HISTORY ================= -->
+
+        <section id="history" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Daily History</h1>
+                    <p>Purane din ka hisaab</p>
+                </div>
+
+            </div>
+
+
+            <div class="history-box" id="history-list">
+
+                <div class="empty">
+                    Abhi koi purana record nahi hai.
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
